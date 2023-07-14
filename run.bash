@@ -76,12 +76,12 @@ for i in "${!sizes[@]}"
 do
     export PAPI_MULTIPLEX=1
     export PAPI_EVENTS="rapl::RAPL_ENERGY_PKG,rapl::RAPL_ENERGY_DRAM"
-    ./MatMul_serial ${sizes[$i]} ${sizes[$i]} ${sizes[$i]} 1 1 0 0
-    ./MatMul_Parallel_OMP ${sizes[$i]} ${sizes[$i]} ${sizes[$i]} 1 1 0 0
-    ./MatMul_Parallel_AVX ${sizes[$i]} ${sizes[$i]} ${sizes[$i]} 1 1 0 0
-    ./MatMul_Parallel_AVX_omp ${sizes[$i]} ${sizes[$i]} ${sizes[$i]} 1 1 0 0
-    ./MatMul_Parallel_AVX512 ${sizes[$i]} ${sizes[$i]} ${sizes[$i]} 1 1 0 0
-    ./MatMul_Parallel_AVX512_omp ${sizes[$i]} ${sizes[$i]} ${sizes[$i]} 1 1 0 0
-    ./MatMul_Parallel_cuda ${sizes[$i]} ${sizes[$i]} ${sizes[$i]} 1 1 0 0
-    ./MatMul_Parallel_cuBLAS ${sizes[$i]} ${sizes[$i]} ${sizes[$i]} 1 1 0 0
+    ./MatMul_serial_papi  ${sizes[$i]} ${sizes[$i]} ${sizes[$i]} 1 1 0 0
+    ./MatMul_Parallel_OMP_papi  ${sizes[$i]} ${sizes[$i]} ${sizes[$i]} 1 1 0 0
+    ./MatMul_Parallel_AVX_papi  ${sizes[$i]} ${sizes[$i]} ${sizes[$i]} 1 1 0 0
+    ./MatMul_Parallel_AVX_omp_papi  ${sizes[$i]} ${sizes[$i]} ${sizes[$i]} 1 1 0 0
+    ./MatMul_Parallel_AVX512_papi  ${sizes[$i]} ${sizes[$i]} ${sizes[$i]} 1 1 0 0
+    ./MatMul_Parallel_AVX512_omp_papi  ${sizes[$i]} ${sizes[$i]} ${sizes[$i]} 1 1 0 0
+    ./MatMul_Parallel_cuda_papi  ${sizes[$i]} ${sizes[$i]} ${sizes[$i]} 1 1 0 0
+    ./MatMul_Parallel_cuBLAS_papi  ${sizes[$i]} ${sizes[$i]} ${sizes[$i]} 1 1 0 0
 done
