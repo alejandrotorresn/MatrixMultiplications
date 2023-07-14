@@ -1,5 +1,7 @@
 #!/bin/bash
 
+root=`pwd`
+
 # ------------------------------------------------------------------------------------------------------------
 # Compilation without PAPI libraries
 # ------------------------------------------------------------------------------------------------------------
@@ -55,7 +57,8 @@ done
 # ------------------------------------------------------------------------------------------------------------
 # Compilation with PAPI libraries
 # ------------------------------------------------------------------------------------------------------------
-cd PAPI
+cd $root/PAPI
+
 g++ -O3 -m64 -I /opt/papi/include handle_error.c MatMul_serial.cpp MatMul.cpp /opt/papi/lib/libpapi.a -o MatMul_serial_papi   
 g++ -O3 -m64 -fopenmp -I /opt/papi/include handle_error.c MatMul_Parallel_OMP.cpp MatMul.cpp /opt/papi/lib/libpapi.a -o MatMul_Parallel_OMP_papi
 g++ -O3 -m64 -mavx2 -mfma -I /opt/papi/include handle_error.c  MatMul_Parallel_AVX.cpp MatMul.cpp /opt/papi/lib/libpapi.a -o MatMul_Parallel_AVX_papi 
@@ -73,12 +76,12 @@ for i in "${!sizes[@]}"
 do
     export PAPI_MULTIPLEX=1
     export PAPI_EVENTS="rapl::RAPL_ENERGY_PKG,rapl::RAPL_ENERGY_DRAM"
-    PAPI/./MatMul_serial ${sizes[$i]} ${sizes[$i]} ${sizes[$i]} 1 1 0 0
-    PAPI/./MatMul_Parallel_OMP ${sizes[$i]} ${sizes[$i]} ${sizes[$i]} 1 1 0 0
-    PAPI/./MatMul_Parallel_AVX ${sizes[$i]} ${sizes[$i]} ${sizes[$i]} 1 1 0 0
-    PAPI/./MatMul_Parallel_AVX_omp ${sizes[$i]} ${sizes[$i]} ${sizes[$i]} 1 1 0 0
-    PAPI/./MatMul_Parallel_AVX512 ${sizes[$i]} ${sizes[$i]} ${sizes[$i]} 1 1 0 0
-    PAPI/./MatMul_Parallel_AVX512_omp ${sizes[$i]} ${sizes[$i]} ${sizes[$i]} 1 1 0 0
-    PAPI/./MatMul_Parallel_cuda ${sizes[$i]} ${sizes[$i]} ${sizes[$i]} 1 1 0 0
-    PAPI/./MatMul_Parallel_cuBLAS ${sizes[$i]} ${sizes[$i]} ${sizes[$i]} 1 1 0 0
+    ./MatMul_serial ${sizes[$i]} ${sizes[$i]} ${sizes[$i]} 1 1 0 0
+    ./MatMul_Parallel_OMP ${sizes[$i]} ${sizes[$i]} ${sizes[$i]} 1 1 0 0
+    ./MatMul_Parallel_AVX ${sizes[$i]} ${sizes[$i]} ${sizes[$i]} 1 1 0 0
+    ./MatMul_Parallel_AVX_omp ${sizes[$i]} ${sizes[$i]} ${sizes[$i]} 1 1 0 0
+    ./MatMul_Parallel_AVX512 ${sizes[$i]} ${sizes[$i]} ${sizes[$i]} 1 1 0 0
+    ./MatMul_Parallel_AVX512_omp ${sizes[$i]} ${sizes[$i]} ${sizes[$i]} 1 1 0 0
+    ./MatMul_Parallel_cuda ${sizes[$i]} ${sizes[$i]} ${sizes[$i]} 1 1 0 0
+    ./MatMul_Parallel_cuBLAS ${sizes[$i]} ${sizes[$i]} ${sizes[$i]} 1 1 0 0
 done
