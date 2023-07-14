@@ -1,0 +1,50 @@
+oarsub -l host=1 -t exotic -p grouille -I -t deploy
+kadeploy3 debian11-base
+
+apt install nvidia-cuda-toolkit -y
+git clone https://github.com/alejandrotorresn/MatMul.git
+
+ncu --target-processes all -o 512_cuBLAS ./MatMul_Parallel_cuBLAS 512 512 512 1 1 0
+
+nvidia-smi --query-gpu=timestamp,name,pci.bus_id,driver_version,pstate,pcie.link.gen.max,pcie.link.gen.current,temperature.gpu,utilization.gpu,utilization.memory,memory.total,memory.free,memory.used --format=csv -l 1
+
+
+
+
+
+nvcc -lcublas -o MatMul_Parallel_cuBLAS MatMul_Parallel_cuBLAS.cpp MatMul.cpp
+
+
+g++ -O3 -m64 -fopenmp MatMul_Parallel_OMP.cpp MatMul.cpp -o MatMul_Parallel_OMP
+
+
+g++ -O3 -m64 -mavx2 -mfma MatMul_Parallel_AVX.cpp MatMul.cpp -o MatMul_Parallel_AVX
+g++ -O3 -m64 -mavx2 -mfma -fopenmp MatMul_Parallel_AVX_omp.cpp MatMul.cpp -o MatMul_Parallel_AVX_omp
+
+
+g++ -m64 -mavx512f -mavx512vl -mavx512bw -mavx512dq -mfma MatMul_Parallel_AVX512.cpp MatMul.cpp -o MatMul_Parallel_AVX512
+
+
+g++ -m64 -mavx512f -mavx512vl -mavx512bw -mavx512dq -mfma -fopenmp MatMul_Parallel_AVX512_omp.cpp MatMul.cpp -o MatMul_Parallel_AVX512_omp
+
+
+stride equal to 1 and padding equal to same
+batch size = 32
+image size 256x256
+filter size = 3x3
+filters by layer = 32
+
+Total mul = 32*256*256*3*3*32
+Total mul = 603.979.776 
+
+matrix A size = 256*256
+matrix B size = 256*256
+
+Total mul = 4.294.967.296
+
+matrix A size = 512*512
+matrix B size = 512*512
+
+Total mul = 68.719.476.736
+
+
