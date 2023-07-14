@@ -99,7 +99,7 @@ int main(int argc, char **argv) {
     
     // Calculating total time
     if (times == 1)
-        cout << (double)chrono::duration_cast<chrono::microseconds>(t2 - t1).count()/1000000.0f/iter << " ";
+        cout << (double)chrono::duration_cast<chrono::microseconds>(t2 - t1).count()/1000.0f/iter << " ";
 
     if (prsize_tOp == 1)
         printMat(matC, N, M);
