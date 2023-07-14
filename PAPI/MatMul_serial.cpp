@@ -66,12 +66,14 @@ int main(int argc, char **argv) {
     if (retval != PAPI_OK)
         handle_error(1);
 
+
     for (int i=0; i<iter; i++)
         matMul_serial(matA, matB, matC, N, M, K);
     
     retval = PAPI_hl_region_end("computation");
     if (retval != PAPI_OK)
         handle_error(1);
+
 
     // end timer
     auto t2 = chrono::steady_clock::now();

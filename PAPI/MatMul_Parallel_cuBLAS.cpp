@@ -18,7 +18,10 @@
 
 using namespace std;
 
-void handle_error(int retval);
+void handle_error (int retval) {
+    printf("PAPI error %d: %s\n", retval, PAPI_strerror(retval));
+    exit(1);
+}
 
 int main(int argc, char **argv) {
     cudaError_t cudaStat;

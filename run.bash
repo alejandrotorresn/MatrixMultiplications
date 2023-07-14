@@ -56,14 +56,14 @@ done
 # Compilation with PAPI libraries
 # ------------------------------------------------------------------------------------------------------------
 cd PAPI
-g++ -O3 -m64 -L /opt/papi/lib -lpapi -I /opt/papi/include MatMul_serial.cpp MatMul.cpp handle_error.c -o MatMul_serial
-g++ -O3 -m64 -fopenmp -L /opt/papi/lib -lpapi -I /opt/papi/include MatMul_Parallel_OMP.cpp MatMul.cpp handle_error.c -o MatMul_Parallel_OMP
-g++ -O3 -m64 -mavx2 -mfma -L /opt/papi/lib -lpapi -I /opt/papi/include MatMul_Parallel_AVX.cpp MatMul.cpp handle_error.c -o MatMul_Parallel_AVX 
-g++ -O3 -m64 -mavx2 -mfma -fopenmp -L /opt/papi/lib -lpapi -I /opt/papi/include MatMul_Parallel_AVX_omp.cpp MatMul.cpp handle_error.c -o MatMul_Parallel_AVX_omp
-g++ -m64 -mavx512f -mavx512vl -mavx512bw -mavx512dq -mfma -L /opt/papi/lib -lpapi  -I /opt/papi/include MatMul_Parallel_AVX512.cpp MatMul.cpp handle_error.c -o MatMul_Parallel_AVX512
-g++ -m64 -mavx512f -mavx512vl -mavx512bw -mavx512dq -mfma -fopenmp -L /opt/papi/lib -lpapi -I /opt/papi/include MatMul_Parallel_AVX512_omp.cpp MatMul.cpp handle_error.c -o MatMul_Parallel_AVX512_omp
-nvcc -L /opt/papi/lib -lpapi -I /opt/papi/include MatMul_Parallel_cuda.cu MatMul.cpp handle_error.c -o MatMul_Parallel_cuda
-nvcc -lcublas -L /opt/papi/lib -lpapi -I /opt/papi/include -o MatMul_Parallel_cuBLAS MatMul_Parallel_cuBLAS.cpp MatMul.cpp handle_error.c
+g++ -O3 -m64 -I /opt/papi/include handle_error.c MatMul_serial.cpp MatMul.cpp /opt/papi/lib/libpapi.a -o MatMul_serial    
+g++ -O3 -m64 -fopenmp -I /opt/papi/include handle_error.c MatMul_Parallel_OMP.cpp MatMul.cpp /opt/papi/lib/libpapi.a -o MatMul_Parallel_OMP
+g++ -O3 -m64 -mavx2 -mfma -I /opt/papi/include handle_error.c  MatMul_Parallel_AVX.cpp MatMul.cpp /opt/papi/lib/libpapi.a -o MatMul_Parallel_AVX 
+g++ -O3 -m64 -mavx2 -mfma -fopenmp -I /opt/papi/include handle_error.c MatMul_Parallel_AVX_omp.cpp MatMul.cpp /opt/papi/lib/libpapi.a -o MatMul_Parallel_AVX_omp
+g++ -m64 -mavx512f -mavx512vl -mavx512bw -mavx512dq -mfma -I /opt/papi/include handle_error.c MatMul_Parallel_AVX512.cpp MatMul.cpp /opt/papi/lib/libpapi.a -o MatMul_Parallel_AVX512
+g++ -m64 -mavx512f -mavx512vl -mavx512bw -mavx512dq -mfma -fopenmp -I /opt/papi/include handle_error.c MatMul_Parallel_AVX512_omp.cpp MatMul.cpp /opt/papi/lib/libpapi.a -o MatMul_Parallel_AVX512_omp
+nvcc -rdc=true -I /opt/papi/include MatMul_Parallel_cuda.cu MatMul.cpp -L /opt/papi/lib -lpapi -o MatMul_Parallel_cuda  
+nvcc -rdc=true -lcublas -I /opt/papi/include MatMul_Parallel_cuBLAS.cpp MatMul.cpp -L /opt/papi/lib -lpapi-o MatMul_Parallel_cuBLAS
 
 # ------------------------------------------------------------------------------------------------------------
 # PAPI Power Consumption
