@@ -120,8 +120,3 @@ bool verification(const float *C_serial, const float *C_parallel, size_t length)
     cout << "Error: " << error/length << endl;
     return true;
 }
-
-void handle_error (int retval) {
-    printf("PAPI error %d: %s\n", retval, PAPI_strerror(retval));
-    exit(1);
-}

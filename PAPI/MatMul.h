@@ -12,5 +12,3 @@ extern void readMat_double(const char path[100], double *vector, int length);
 extern void printMat_double(const double *C, int N, int M);
 
 extern bool verification(const float *C_serial, const float *C_parallel, size_t length);
-
-extern void handle_error(int retval);
