@@ -34,6 +34,7 @@ const uint32_t *c_MaskMovLUT[8] {
 };
 
 void matMul_avx2(const float *A, const float *B, float *C, int N, int M, int K);
+void handle_error(int retval);
 
 int main(int argc, char **argv) {
     int N, M, K;

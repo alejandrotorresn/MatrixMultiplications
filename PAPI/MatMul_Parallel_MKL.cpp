@@ -9,6 +9,7 @@
 
 using namespace std;
 
+void handle_error(int retval);
 
 int main(int argc, char **argv) {
 
@@ -70,7 +71,7 @@ int main(int argc, char **argv) {
     retval = PAPI_hl_region_begin("computation");
     if (retval != PAPI_OK)
         handle_error(1);
-        
+
     for (int i=0; i<iter; i++)
         cblas_dgemm(CblasRowMajor, CblasNoTrans, CblasNoTrans, M, N, K, alpha, matA, K, matB, N, beta, matC, N);
 

@@ -18,6 +18,8 @@
 
 using namespace std;
 
+void handle_error(int retval);
+
 int main(int argc, char **argv) {
     cudaError_t cudaStat;
     cublasStatus_t stat;

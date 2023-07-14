@@ -16,6 +16,7 @@
 using namespace std;
 
 void matMul_avx512_omp(const float *A, const float *B, float *C, int N, int M, int K);
+void handle_error(int retval);
 
 int main (int argc, char **argv) {
     int N, M, K;

@@ -18,7 +18,7 @@ using namespace std;
 
 __global__ void matMul_cuda_kernel(const float *A, const float *B, float *C, size_t M, size_t N, size_t K);
 bool verification(const float *C_cpu, const float *C_gpu, size_t length);
-
+void handle_error(int retval);
 
 int main(int argc, char **argv) {
 
